@@ -55,7 +55,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ rouet('products') }}" class="flex items-center gap-3.5 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                        <a href="" class="flex items-center gap-3.5 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors">
                             <i class="fa-solid fa-boxes-stacked text-lg w-5 text-center text-slate-400"></i>
                             Products
                         </a>

@@ -168,7 +168,7 @@ class ImportProductChunkJob implements ShouldQueue
             FILE_APPEND
         );*/
 
-        //Brodcast
+        //Brodcast Custom Event
         event(new ImportProgressUpdated(
             $this->importId,
             $progress,
@@ -177,9 +177,10 @@ class ImportProductChunkJob implements ShouldQueue
 
 
         //Notification
-        
+        $user = User::find(1);
         Notification::send($users, new ProductImportCompleted($this->importId, 'Import completed successfully.'));
 
+        
 
         if ($progress == 100) {
 
