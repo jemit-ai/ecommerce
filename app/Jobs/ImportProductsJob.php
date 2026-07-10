@@ -44,11 +44,7 @@ class ImportProductsJob implements ShouldQueue
             file($file)
         );
 
-        file_put_contents(
-            storage_path('logs/test.log'),
-            "Found " . count($rows) . " rows\n",
-            FILE_APPEND
-        );
+        
         
         $header = array_shift($rows);
 
@@ -66,25 +62,12 @@ class ImportProductsJob implements ShouldQueue
                 $this->productImport->id
             );
 
-            /*file_put_contents(
-                storage_path('logs/test.log'),
-                $tep." :-Dispatching\n",
-                FILE_APPEND
-            );*/
 
             $tep++;
         }
 
         $import = ProductImport::find($this->productImport->id);
 
-        file_put_contents(
-            
-            storage_path('logs/test.log'),
-            "Processed " . $import->processed_rows . "\n",
-            FILE_APPEND
-        );
- 
-        
         file_put_contents(
             storage_path('logs/test.log'),
             "End started\n",

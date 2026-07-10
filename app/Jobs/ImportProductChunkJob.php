@@ -40,62 +40,6 @@ class ImportProductChunkJob implements ShouldQueue
     {
         //
 
-        /*foreach($this->rows as $row){
-
-            DB::beginTransaction();
-
-            try{
-
-                $product=[ 
-                    'name' => trim($row[1]),
-                    'slug' => Str::slug(trim($row[1])),
-                    'description' => trim($row[2]),
-                    'price' => $row[3],
-                    'stock' => $row[4],
-                    'status' => $row[5],
-                    'category_id' => $row[6],
-                    'supplier_id' => $row[7],
-                ];
-
-                $name = trim($row[0]);
-                $sku = trim($row[1]);
-                $slug = Str::slug(trim($row[2]));
-                $description = trim($row[3]);
-                $price = $row[4];
-                $sale_price = $row[5];
-                $stock = $row[6];
-
-                Product::updateOrCreate([
-                    'name' => $name,
-                    'sku' => $sku,
-                    'slug' => $slug,
-                    'description' => $description,
-                    'price' => $price,
-                    'sale_price' => $sale_price,
-                    'stock' => $stock,
-                ]);
-
-                ProductImport::whereId($importId)->increment('success_rows');
-
-                ProductImport::whereId($importId)->increment('processed_rows');
-                
-                DB::commit();
-
-            }catch(\Exception $e){
-
-                DB::rollBack();
-
-                ProductImport::whereId($importId)->increment('failed_rows');
-
-                ProductImport::whereId($importId)->increment('processed_rows');
-
-                
-            } 
-
-            
-
-        }*/
-
         foreach($this->rows as $row){
 
              try {
@@ -152,23 +96,10 @@ class ImportProductChunkJob implements ShouldQueue
 
         $import->refresh();  
 
-        /*file_put_contents(
-            storage_path('logs/test.log'),
-            "Processed Chunk =>" . $import->processed_rows . "\n",
-            FILE_APPEND
-        );*/
-
-       
         $progress = round(
             ($import->processed_rows / $import->total_rows) * 100
         );
 
-
-        /*file_put_contents(
-            storage_path('logs/test.log'),
-            "Progress Chunk =>" . $progress . "\n",
-            FILE_APPEND
-        );*/
 
         //Brodcast Custom Event
         event(new ImportProgressUpdated(

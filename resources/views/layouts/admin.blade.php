@@ -21,16 +21,7 @@
         }
     </style>
 
-    <!--script>
-    window.userId = 1;
-
-    window.Echo.private(`App.Models.User.${window.userId}`)
-        .notification((notification) => {
-            console.log(notification);
-            addNotification(notification);
-        });
-</script-->
-
+  
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -42,9 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    loadUnreadNotifications();
+
     window.Echo.private(`App.Models.User.${window.userId}`)
         .notification((notification) => {
             //console.log(notification);
+
+            loadUnreadNotifications();
+
         });
 
 });
@@ -158,123 +154,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="relative inline-block text-left">
 
                     <!-- Notification Button -->
-                    <button id="notificationBtn"
+                    <button style="cursor: pointer;" id="notificationBtn"
                         class="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition">
                         <i class="fa-regular fa-bell text-lg"></i>
 
                         <!-- Notification Count -->
-                        <span
+                        <span  id="notificationCount"
                             class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
                             3
                         </span>
                     </button>
 
                     <!-- Dropdown -->
-                    <div id="notificationDropdown"
+                    <div id="notificationList"
                         class="hidden absolute right-0 mt-3 w-96 origin-top-right rounded-xl border border-slate-200 bg-white shadow-2xl overflow-hidden z-50">
 
-                        <!-- Header -->
-                        <div class="flex items-center justify-between border-b px-5 py-4">
-                            <div>
-                                <h3 class="font-semibold text-slate-800">Notifications</h3>
-                                <p class="text-xs text-slate-500">You have 3 unread notifications</p>
-                            </div>
-
-                            <button class="text-sm text-indigo-600 hover:text-indigo-700">
-                                Mark all read
-                            </button>
-                        </div>
-
-                        <!-- Notification List -->
-                        <div class="max-h-96 overflow-y-auto">
-
-                            <!-- Item -->
-                            <a href="#"
-                                class="flex gap-3 px-5 py-4 hover:bg-slate-50 transition border-b">
-
-                                <div
-                                    class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
-                                    <i class="fa-solid fa-box"></i>
-                                </div>
-
-                                <div class="flex-1">
-                                    <p class="text-sm font-medium text-slate-800">
-                                        Product Import Completed
-                                    </p>
-
-                                    <p class="text-xs text-slate-500 mt-1">
-                                        150 products imported successfully.
-                                    </p>
-
-                                    <span class="text-[11px] text-slate-400">
-                                        2 mins ago
-                                    </span>
-                                </div>
-
-                                <span class="mt-2 h-2 w-2 rounded-full bg-indigo-600"></span>
-
-                            </a>
-
-                            <!-- Item -->
-                            <a href="#"
-                                class="flex gap-3 px-5 py-4 hover:bg-slate-50 transition border-b">
-
-                                <div
-                                    class="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-600">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                </div>
-
-                                <div class="flex-1">
-                                    <p class="text-sm font-medium text-slate-800">
-                                        Order Confirmed
-                                    </p>
-
-                                    <p class="text-xs text-slate-500 mt-1">
-                                        Order #10235 has been confirmed.
-                                    </p>
-
-                                    <span class="text-[11px] text-slate-400">
-                                        20 mins ago
-                                    </span>
-                                </div>
-
-                            </a>
-
-                            <!-- Item -->
-                            <a href="#"
-                                class="flex gap-3 px-5 py-4 hover:bg-slate-50 transition">
-
-                                <div
-                                    class="flex h-10 w-10 items-center justify-center rounded-full bg-red-100 text-red-600">
-                                    <i class="fa-solid fa-circle-exclamation"></i>
-                                </div>
-
-                                <div class="flex-1">
-                                    <p class="text-sm font-medium text-slate-800">
-                                        Product Import Failed
-                                    </p>
-
-                                    <p class="text-xs text-slate-500 mt-1">
-                                        5 products failed during import.
-                                    </p>
-
-                                    <span class="text-[11px] text-slate-400">
-                                        1 hour ago
-                                    </span>
-                                </div>
-
-                            </a>
-
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="border-t bg-slate-50 p-3">
-                            <a href="#"
-                                class="block rounded-lg bg-indigo-600 py-2 text-center text-sm font-medium text-white hover:bg-indigo-700">
-                                View All Notifications
-                            </a>
-                        </div>
-
+                       
                     </div>
 
                 </div>
