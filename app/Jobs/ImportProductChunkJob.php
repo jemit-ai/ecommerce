@@ -178,17 +178,16 @@ class ImportProductChunkJob implements ShouldQueue
         ));
 
 
-        //Notification
-        $user = User::find(1);
-        Notification::send($users, new ProductImportCompleted($this->importId, 'Import completed successfully.'));
-
-
-
+       
         if ($progress == 100) {
 
             ProductImport::whereId($this->importId)->update([
                 'status' => 'completed',
             ]);
+
+            //Notification
+            $user = User::find(1);
+            Notification::send($user, new ProductImportCompleted($this->importId, 'Import completed successfully.'));
 
         }
      

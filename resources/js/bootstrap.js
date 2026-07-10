@@ -10,4 +10,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  */
 
 import './echo';
+import './admin';
+import './user'
 

@@ -34,7 +34,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-    window.userId = 1;
+    window.userId = {{ auth()->id() ?? 'null' }};
     console.log(window.Echo);
 
     if (!window.Echo) {
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.Echo.private(`App.Models.User.${window.userId}`)
         .notification((notification) => {
-            console.log(notification);
+            //console.log(notification);
         });
 
 });
@@ -149,18 +149,162 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <!-- Profile Info & Notifications -->
             <div class="flex items-center gap-4">
-                <button type="button" class="relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-600 hover:bg-slate-50">
+
+                <!--button type="button" class="relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-600 hover:bg-slate-50">
                     <i class="fa-regular fa-bell text-base"></i>
                     <span class="absolute right-2.5 top-2.5 flex h-2 w-2 rounded-full bg-indigo-600"></span>
-                </button>
+                </button-->
+
+                <div class="relative inline-block text-left">
+
+                    <!-- Notification Button -->
+                    <button id="notificationBtn"
+                        class="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition">
+                        <i class="fa-regular fa-bell text-lg"></i>
+
+                        <!-- Notification Count -->
+                        <span
+                            class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+                            3
+                        </span>
+                    </button>
+
+                    <!-- Dropdown -->
+                    <div id="notificationDropdown"
+                        class="hidden absolute right-0 mt-3 w-96 origin-top-right rounded-xl border border-slate-200 bg-white shadow-2xl overflow-hidden z-50">
+
+                        <!-- Header -->
+                        <div class="flex items-center justify-between border-b px-5 py-4">
+                            <div>
+                                <h3 class="font-semibold text-slate-800">Notifications</h3>
+                                <p class="text-xs text-slate-500">You have 3 unread notifications</p>
+                            </div>
+
+                            <button class="text-sm text-indigo-600 hover:text-indigo-700">
+                                Mark all read
+                            </button>
+                        </div>
+
+                        <!-- Notification List -->
+                        <div class="max-h-96 overflow-y-auto">
+
+                            <!-- Item -->
+                            <a href="#"
+                                class="flex gap-3 px-5 py-4 hover:bg-slate-50 transition border-b">
+
+                                <div
+                                    class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
+                                    <i class="fa-solid fa-box"></i>
+                                </div>
+
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-slate-800">
+                                        Product Import Completed
+                                    </p>
+
+                                    <p class="text-xs text-slate-500 mt-1">
+                                        150 products imported successfully.
+                                    </p>
+
+                                    <span class="text-[11px] text-slate-400">
+                                        2 mins ago
+                                    </span>
+                                </div>
+
+                                <span class="mt-2 h-2 w-2 rounded-full bg-indigo-600"></span>
+
+                            </a>
+
+                            <!-- Item -->
+                            <a href="#"
+                                class="flex gap-3 px-5 py-4 hover:bg-slate-50 transition border-b">
+
+                                <div
+                                    class="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-600">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </div>
+
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-slate-800">
+                                        Order Confirmed
+                                    </p>
+
+                                    <p class="text-xs text-slate-500 mt-1">
+                                        Order #10235 has been confirmed.
+                                    </p>
+
+                                    <span class="text-[11px] text-slate-400">
+                                        20 mins ago
+                                    </span>
+                                </div>
+
+                            </a>
+
+                            <!-- Item -->
+                            <a href="#"
+                                class="flex gap-3 px-5 py-4 hover:bg-slate-50 transition">
+
+                                <div
+                                    class="flex h-10 w-10 items-center justify-center rounded-full bg-red-100 text-red-600">
+                                    <i class="fa-solid fa-circle-exclamation"></i>
+                                </div>
+
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-slate-800">
+                                        Product Import Failed
+                                    </p>
+
+                                    <p class="text-xs text-slate-500 mt-1">
+                                        5 products failed during import.
+                                    </p>
+
+                                    <span class="text-[11px] text-slate-400">
+                                        1 hour ago
+                                    </span>
+                                </div>
+
+                            </a>
+
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="border-t bg-slate-50 p-3">
+                            <a href="#"
+                                class="block rounded-lg bg-indigo-600 py-2 text-center text-sm font-medium text-white hover:bg-indigo-700">
+                                View All Notifications
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
 
                 <div class="h-6 w-px bg-slate-200"></div>
 
-                <div class="flex items-center gap-3">
-                    <img class="h-9 w-9 rounded-full object-cover ring-2 ring-indigo-50" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100&h=100" alt="Admin user avatar">
-                    <div class="hidden md:block text-left">
-                        <p class="text-xs font-semibold text-slate-900 leading-tight">Sarah Jenkins</p>
-                        <p class="text-2xs font-medium text-slate-400">Super Administrator</p>
+                <div class="relative">
+                    <button type="button" id="profileDropdownBtn" class="flex items-center gap-3 focus:outline-none select-none cursor-pointer">
+                        <img class="h-9 w-9 rounded-full object-cover ring-2 ring-indigo-50" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100&h=100" alt="Admin user avatar">
+                        <div class="hidden md:block text-left">
+                            <p class="text-xs font-semibold text-slate-900 leading-tight">{{ auth()->user()->name }}</p>
+                            <p class="text-2xs font-medium text-slate-400">Super Administrator</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-slate-400 text-xs hidden md:block transition-transform duration-200" id="profileChevron"></i>
+                    </button>
+                    
+                    <!-- Dropdown Menu -->
+                    <div id="profileDropdown" class="absolute right-0 mt-2.5 w-52 origin-top-right rounded-xl border border-slate-200 bg-white p-2.5 shadow-xl shadow-slate-100/50 ring-1 ring-black/5 focus:outline-none z-50 hidden opacity-0 scale-95 transition-all duration-150">
+                        <div class="px-2.5 py-2 border-b border-slate-100 mb-1">
+                            <p class="text-xs font-semibold text-slate-900">{{ auth()->user()->name }}</p>
+                            <p class="text-2xs font-medium text-slate-400 truncate">{{ auth()->user()->email }}</p>
+                        </div>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="w-full flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm font-semibold text-red-600 hover:bg-red-50/50 transition-colors cursor-pointer">
+                                <i class="fa-solid fa-arrow-right-from-bracket text-base"></i>
+                                Sign out
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -186,6 +330,44 @@ document.addEventListener('DOMContentLoaded', () => {
             backdrop.classList.add('hidden');
         }
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const dropdownBtn = document.getElementById('profileDropdownBtn');
+        const dropdownMenu = document.getElementById('profileDropdown');
+        const chevron = document.getElementById('profileChevron');
+
+        if (dropdownBtn && dropdownMenu) {
+            dropdownBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isHidden = dropdownMenu.classList.contains('hidden');
+                
+                if (isHidden) {
+                    dropdownMenu.classList.remove('hidden');
+                    dropdownMenu.offsetHeight; // force reflow
+                    dropdownMenu.classList.remove('opacity-0', 'scale-95');
+                    if (chevron) chevron.classList.add('rotate-180');
+                } else {
+                    dropdownMenu.classList.add('opacity-0', 'scale-95');
+                    if (chevron) chevron.classList.remove('rotate-180');
+                    setTimeout(() => {
+                        dropdownMenu.classList.add('hidden');
+                    }, 150);
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!dropdownMenu.contains(e.target) && !dropdownBtn.contains(e.target)) {
+                    if (!dropdownMenu.classList.contains('hidden')) {
+                        dropdownMenu.classList.add('opacity-0', 'scale-95');
+                        if (chevron) chevron.classList.remove('rotate-180');
+                        setTimeout(() => {
+                            dropdownMenu.classList.add('hidden');
+                        }, 150);
+                    }
+                }
+            });
+        }
+    });
 </script>
 </body>
 </html>
