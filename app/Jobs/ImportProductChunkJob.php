@@ -13,6 +13,8 @@ use App\Events\ImportProgressUpdated;
 use Illuminate\Support\Facades\Log;
 use App\Notifications\ProductImportCompleted;
 use App\Models\User;
+use Illuminate\Support\Facades\Notification;
+
 
 
 class ImportProductChunkJob implements ShouldQueue
@@ -180,7 +182,7 @@ class ImportProductChunkJob implements ShouldQueue
         $user = User::find(1);
         Notification::send($users, new ProductImportCompleted($this->importId, 'Import completed successfully.'));
 
-        
+
 
         if ($progress == 100) {
 

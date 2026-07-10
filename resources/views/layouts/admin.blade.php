@@ -21,7 +21,34 @@
         }
     </style>
 
-    
+    <!--script>
+    window.userId = 1;
+
+    window.Echo.private(`App.Models.User.${window.userId}`)
+        .notification((notification) => {
+            console.log(notification);
+            addNotification(notification);
+        });
+</script-->
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    window.userId = 1;
+    console.log(window.Echo);
+
+    if (!window.Echo) {
+        console.error('Echo not initialized');
+        return;
+    }
+
+    window.Echo.private(`App.Models.User.${window.userId}`)
+        .notification((notification) => {
+            console.log(notification);
+        });
+
+});
+</script>
 
 </head>
 <body class="h-full text-slate-800 antialiased">
