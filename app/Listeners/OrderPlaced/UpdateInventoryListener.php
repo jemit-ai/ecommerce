@@ -7,7 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Events\Order\OrderPlaced;
 use App\Models\Order;
 use App\Models\Product;
-
+use App\Services\Order\InventoryService;
 
 class UpdateInventoryListener
 {

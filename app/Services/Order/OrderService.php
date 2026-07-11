@@ -53,7 +53,7 @@ class OrderService
 
                 }
 
-                $this->inventoryService->deductStock($order);
+                // $this->inventoryService->deductStock($order);
 
                 // save payment
 
@@ -63,12 +63,13 @@ class OrderService
             });
 
 
+
             // After Transaction 
-            //event(new OrderPlaced($order));
+            // Event(new OrderPlaced($order));
 
             DB::afterCommit(function () use ($order) {
                 OrderPlaced::dispatch($order);
-            });
+            }); 
 
 
             return $order;
