@@ -9,11 +9,14 @@ use Illuminate\Support\Str;
 use League\Csv\Reader;
 use App\Models\Product;
 use App\Models\ProductImport;
+use App\Models\ProductImage;
 use App\Events\ImportProgressUpdated;
 use Illuminate\Support\Facades\Log;
 use App\Notifications\ProductImportCompleted;
 use App\Models\User;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ProductImportCompletedMail;
 
 
 
@@ -53,14 +56,10 @@ class ImportProductChunkJob implements ShouldQueue
                         $price = $row[4];
                         $discount_price = $row[5];
                         $stock = $row[6];
+                        //$images = explode("|", $row[7]);
+                        $images = array_filter(array_map('trim', explode('|', $row[7])));
 
-                        /*file_put_contents(
-                            storage_path('logs/test.log'),
-                            "Processing Row =>" . $row[0] . "\n",
-                            FILE_APPEND
-                        ); */
-
-                        Product::create([
+                        $product = Product::create([
                             'name' => $name,
                             'sku' => $sku,
                             'slug' => $slug,
@@ -70,19 +69,25 @@ class ImportProductChunkJob implements ShouldQueue
                             'stock' => $stock,
                         ]);
 
-                        
+                        $productId = $product->id;
+
+                        foreach($images as $img){
+
+                            ProductImage::create([
+                                'product_id' => $productId,
+                                'image' => $img,
+                            ]);
+
+                        }
+
                         ProductImport::whereId($this->importId)->increment('processed_rows');
 
                 });
 
-                //DB::commit();
-
-
+                
             }catch(\Throwable $e){
 
                 Log::error($e->getMessage());
-
-                //DB::rollBack();
 
                 ProductImport::whereId($this->importId)->increment('failed_rows');
 
@@ -119,6 +124,9 @@ class ImportProductChunkJob implements ShouldQueue
             //Notification
             $user = User::find(1);
             Notification::send($user, new ProductImportCompleted($this->importId, 'Import completed successfully.'));
+
+            //Email
+            Mail::to($user->email)->queue(new ProductImportCompletedMail($import));
 
         }
      
