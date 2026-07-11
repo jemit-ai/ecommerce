@@ -40,8 +40,15 @@ class OrderService
                     // $product->decrement('stock', $item['quantity']);
                 }
 
+                // save payment
+
+                // clear cart
+
                 return $order;
             });
+
+
+            // After Transaction event(new OrderPlaced($order));
 
             return $order;
 
@@ -72,6 +79,7 @@ class OrderService
                 return $order;
             });
 
+            
             return $order;
 
         }catch(Exception $e){

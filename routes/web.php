@@ -33,7 +33,12 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('order',[OrderController::class,'store'])->name('order.place');
-        
+
+    Route::post('cancelorder',[OrderController::class,'cancel'])->name('order.cancel');
+    
+
+
+    
 });
 
 
