@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
         ]);
     });
 
+    Route::post('order',[OrderController::class,'store'])->name('order.place');
+        
 });
 
 
