@@ -12,7 +12,6 @@ use App\Events\Order\OrderPaid;
 use App\Events\Order\OrderCancelled;
 use Exception;
 
-
 class OrderService
 {
 
