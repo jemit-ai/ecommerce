@@ -6,6 +6,12 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Event;
+use App\Events\Order\OrderPlaced;
+use App\Events\Order\OrderPaid;
+use App\Events\Order\OrderCancelled;
+use Exception;
+
 
 class OrderService
 {
