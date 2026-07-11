@@ -22,7 +22,6 @@ class OrderController extends Controller
                 'payment_method'   => 'required|string|in:stripe,paypal,cod',
             ]);
 
-            
             $order = $this->orderService->create($validated);
 
             return redirect()->route('order.success', $order->id);
@@ -36,7 +35,7 @@ class OrderController extends Controller
 
     function cancel(Request $request){
 
-        
+
 
     }
         
