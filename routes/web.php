@@ -2,11 +2,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductImportController;
 use App\Http\Controllers\Auth\LoginController;
-
+use App\Http\Controllers\OrderController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
+
+    Route::post('/order',[OrderController::class,'store'])->name('order.place');
+    Route::post('/cancelorder',[OrderController::class,'cancel'])->name('order.cancel');
+    
 });
 
 Route::get('/', function () {
@@ -32,13 +36,6 @@ Route::middleware('auth')->group(function () {
         ]);
     });
 
-    Route::post('order',[OrderController::class,'store'])->name('order.place');
-
-    Route::post('cancelorder',[OrderController::class,'cancel'])->name('order.cancel');
-    
-
-
-    
 });
 
 
