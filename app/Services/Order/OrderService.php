@@ -10,11 +10,17 @@ use Illuminate\Support\Facades\Event;
 use App\Events\Order\OrderPlaced;
 use App\Events\Order\OrderPaid;
 use App\Events\Order\OrderCancelled;
+use App\Services\Order\InventoryService;
+
+
+
 use Exception;
 
 class OrderService
 {
 
+    public function __construct(public InventoryService $inventoryService){}
+    
     public function create(array $data):Order{
 
         try{
@@ -43,7 +49,11 @@ class OrderService
 
                     // Reduce Stock
                     // $product->decrement('stock', $item['quantity']);
+                    //$this->inventoryService->reserveStock($product, $item['quantity']);
+
                 }
+
+                $this->inventoryService->deductStock($order);
 
                 // save payment
 
@@ -53,7 +63,8 @@ class OrderService
             });
 
 
-            // After Transaction event(new OrderPlaced($order));
+            // After Transaction 
+            event(new OrderPlaced($order));
 
             return $order;
 

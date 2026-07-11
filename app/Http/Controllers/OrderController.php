@@ -23,7 +23,7 @@ class OrderController extends Controller
             ]);
 
             $order = $this->orderService->create($validated);
-
+            
             return redirect()->route('order.success', $order->id);
 
         }catch(Exception $e){
