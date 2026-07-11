@@ -23,17 +23,19 @@ class OrderService
     
     public function create(array $data):Order{
 
-        try{
+        
+        /*try{
 
             $order = DB::transaction(function () use ($data) {
 
-                $order = Order::create([
-                    'user_id'        => $data['user_id'],
+                $order = Order::create([ 
+                    'user_id'        => 3,
                     'order_number'   => Str::random(10),
                     'payment_method' => $data['payment_method'],
-                    'payment_id'     => $data['payment_id'],
+                    'payment_id'     => 1,
                     'order_status'   => $data['order_status'],
                 ]);
+
 
                 foreach ($data['products'] as $item) {
 
@@ -77,7 +79,7 @@ class OrderService
         }catch(Exception $e){
             DB::rollBack();
             throw $e;
-        }
+        }*/
 
     }
 
