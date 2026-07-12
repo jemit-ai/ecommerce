@@ -23,20 +23,25 @@ class OrderService
     
     public function create(array $data):Order{
 
-        \Log::info("Order created...");
+        //\Log::info("Order created...");
+        //dd($data); 
         
-        /*try{
+        try{
 
             $order = DB::transaction(function () use ($data) {
+
+                $coupon_code    = $data['coupon_code']; 
+                $payment_method = $data['payment_method'];
+                $product_id     = $data['products'][0]['product_id'];
+                $quantity       = $data['products'][0]['quantity'];  
 
                 $order = Order::create([ 
                     'user_id'        => 3,
                     'order_number'   => Str::random(10),
-                    'payment_method' => $data['payment_method'],
+                    'payment_method' => $payment_method,
                     'payment_id'     => 1,
-                    'order_status'   => $data['order_status'],
+                    'order_status'   => 'pending',
                 ]);
-
 
                 foreach ($data['products'] as $item) {
 
@@ -63,9 +68,8 @@ class OrderService
                 // clear cart
 
                 return $order;
+
             });
-
-
 
             // After Transaction 
             // Event(new OrderPlaced($order));
@@ -73,14 +77,13 @@ class OrderService
             DB::afterCommit(function () use ($order) {
                 OrderPlaced::dispatch($order);
             }); 
-
-
+            
             return $order;
-
+            
         }catch(Exception $e){
             DB::rollBack();
             throw $e;
-        }*/
+        }
 
     }
 
