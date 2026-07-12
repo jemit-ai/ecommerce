@@ -23,6 +23,7 @@ class OrderService
     
     public function create(array $data):Order{
 
+        \Log::info("Order created...");
         
         /*try{
 
