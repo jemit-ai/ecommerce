@@ -6,7 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Events\Order\OrderPlaced;
 use App\Models\Order;
-use App\Services\InvoiceService; 
+use App\Services\Order\InvoiceService; 
 
 class GenerateInvoiceListener
 {
