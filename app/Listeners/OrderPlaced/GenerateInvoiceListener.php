@@ -6,7 +6,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Events\Order\OrderPlaced;
 use App\Models\Order;
+use App\Models\Product;
 use App\Services\Order\InvoiceService; 
+use App\Jobs\Order\GenerateInvoice;
 
 class GenerateInvoiceListener
 {
@@ -26,5 +28,10 @@ class GenerateInvoiceListener
     public function handle(object $event): void
     {
         //
+
+        \Log::info('Invoice listener triggerd.');
+        GenerateInvoice::dispatch($event->order);
+
+
     }
 }

@@ -12,27 +12,39 @@ class InvoiceService{
     
     public function generate(Order $order):string{
 
-        $order->load([
-            'user',
-            'orderDetails.product'
-        ]);
+        \Log::info("####Invoice service started ####");
 
-        $pdf = Pdf::loadView(
-            'pdf.invoice',
-            [
-                'order' => $order,
-            ]
-        );
+        \Log::info($order);
+
+        try{
+
+            $order->load([
+                'user',
+                'orderDetails.product'
+            ]);
+
+            $pdf = Pdf::loadView(
+                'pdf.invoice',
+                [
+                    'order' => $order,
+                ]
+            );
 
 
-        $fileName = "invoice-{$order->order_number}.pdf";
+            $fileName = "invoice-{$order->order_number}.pdf";
 
-        $path = "invoices/{$fileName}";
+            $path = "invoices/{$fileName}";
 
-        Storage::disk('public')->put(
-            $path,
-            $pdf->output()
-        );
+            Storage::disk('public')->put(
+                $path,
+                $pdf->output()
+            );
+
+        }catch(Exception $e){
+
+            \Log::info($e->getMessage());
+            
+        }
 
         return $path;
 
