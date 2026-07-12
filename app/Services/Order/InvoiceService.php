@@ -20,7 +20,7 @@ class InvoiceService{
 
             $order->load([
                 'user',
-                'orderDetails.product'
+                'details.product'
             ]);
 
             $pdf = Pdf::loadView(

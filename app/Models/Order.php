@@ -24,6 +24,7 @@ class Order extends Model
 
     /**
      * Order has many order details.
+     * 
      */
     public function details()
     {
