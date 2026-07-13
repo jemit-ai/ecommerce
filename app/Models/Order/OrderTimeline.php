@@ -10,11 +10,12 @@ class OrderTimeline extends Model
 
     protected $fillable = [
         'order_id',
+        'user_id',
         'status',
         'title',
         'description',
         'created_by',
-        'event_time'
+        'event_time',
     ];
     
     public function order()
@@ -24,7 +25,7 @@ class OrderTimeline extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             //$table->timestamps();
             $table->id();
             $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             
             $table->string('status');        // pending, processing, shipped, delivered, cancelled
             $table->string('title');         // concise title
