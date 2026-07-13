@@ -28,8 +28,11 @@ class UpdateInventory implements ShouldQueue
     public function handle(InventoryService $inventoryService): void
     {
         //
-        $inventoryService->deductStock($this->order);
-        \Log::info("Inventory updated for order {$this->order->id}");
-
+        try{
+          $inventoryService->deductStock($this->order);
+        }catch(Exception $e){
+          \Log::info("Inventory update failed for order {$this->order->id}  {$e->getMessage()}");
+        } 
+            
     }
 }

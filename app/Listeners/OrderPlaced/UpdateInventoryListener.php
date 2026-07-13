@@ -25,7 +25,12 @@ class UpdateInventoryListener
      */
     public function handle(object $event): void
     {
-        UpdateInventory::dispatch($event->order);
+        //UpdateInventory::dispatch($event->order);
+        try{ 
+            UpdateInventory::dispatch($event->order);
+        }catch(Exception $e){
+            \Log::info("Inventory update failed for order {$event->order->id}  {$e->getMessage()}");
+        }
     }
 
 

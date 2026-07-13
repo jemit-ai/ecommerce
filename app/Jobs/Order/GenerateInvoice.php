@@ -28,9 +28,11 @@ class GenerateInvoice implements ShouldQueue
     public function handle(InvoiceService $invoiceService): void
     {
         //
-        \Log::info("Invoice generation started ####");
-
-        $invoiceService->generate($this->order);
+       try{
+          $invoiceService->generate($this->order);
+       }catch(Exception $e){
+          \Log::info("Invoice generation failed for order {$this->order->id}  {$e->getMessage()}");
+       }
 
 
     }

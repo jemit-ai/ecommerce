@@ -28,10 +28,11 @@ class GenerateInvoiceListener
     public function handle(object $event): void
     {
         //
-
-        \Log::info('Invoice listener triggerd.');
-        GenerateInvoice::dispatch($event->order);
-
+        try{
+            GenerateInvoice::dispatch($event->order);
+        }catch(Exception $e){
+            \Log::info("Invoice generation failed for order {$event->order->id}  {$e->getMessage()}");
+        }
 
     }
 }
