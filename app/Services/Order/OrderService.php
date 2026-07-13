@@ -7,12 +7,10 @@ use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Event;
-use App\Events\Order\OrderPlaced;
 use App\Events\Order\OrderPaid;
 use App\Events\Order\OrderCancelled;
 use App\Services\Order\InventoryService;
-
-
+use App\Events\Order\OrderPlaced;
 
 use Exception;
 
@@ -23,7 +21,7 @@ class OrderService
     
     public function create(array $data):Order{
 
-        //\Log::info("Order created...");
+        \Log::info("Order created...");
         //dd($data); 
         
         try{
@@ -75,7 +73,7 @@ class OrderService
             // Event(new OrderPlaced($order));
 
             DB::afterCommit(function () use ($order) {
-                OrderPlaced::dispatch($order);
+                OrderPlaced::dispatch($order); 
             }); 
             
             return $order;

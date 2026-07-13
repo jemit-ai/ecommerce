@@ -5,7 +5,7 @@ namespace App\Listeners\OrderPlaced;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class GenerateOrderNumberListener
+class SendEmail
 {
     /**
      * Create the event listener.

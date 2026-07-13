@@ -6,9 +6,12 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
 use App\Events\Order\OrderPlaced;
-use App\Listeners\OrderPlaced\UpdateInventoryListener;
-use App\Listeners\OrderPlaced\SendOrderEmailListener;
-use App\Listeners\OrderPlaced\GenerateInvoiceListener;
+
+use App\Listeners\OrderPlaced\ReserveInventory;
+use App\Listeners\OrderPlaced\GenerateOrderNo;
+use App\Listeners\OrderPlaced\CreateTimeline;
+use App\Listeners\OrderPlaced\NotifyAdmin;
+use App\Listeners\OrderPlaced\SendEmail;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -27,9 +30,19 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-        Event::listen(OrderPlaced::class, [UpdateInventoryListener::class, 'handle']);
+        //Event::listen(OrderPlaced::class, [UpdateInventoryListener::class, 'handle']);
         //Event::listen(OrderPlaced::class, [SendOrderEmailListener::class, 'handle']);
-        Event::listen(OrderPlaced::class, [GenerateInvoiceListener::class, 'handle']);
+        //Event::listen(OrderPlaced::class, [GenerateInvoiceListener::class, 'handle']);
         
+        Event::listen(OrderPlaced::class,
+            [
+                ReserveInventory::class, 'handle', 
+                GenerateOrderNo::class, 'handle', 
+                CreateTimeline::class, 'handle', 
+                NotifyAdmin::class, 'handle', 
+                SendEmail::class, 'handle'
+            ]);
+            
+
     }
 }
