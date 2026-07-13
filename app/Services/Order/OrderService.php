@@ -32,7 +32,10 @@ class OrderService
                 $coupon_code    = $data['coupon_code']; 
                 $payment_method = $data['payment_method'];
                 $product_id     = $data['products'][0]['product_id'];
-                $quantity       = $data['products'][0]['quantity'];  
+                $quantity       = $data['products'][0]['quantity'];   
+
+                \Log::warning('#user ID Placed  $order = Order::create([ 
+                    user_id       => 3,'."File:--->".__FILE__."Line:--->".__LINE__);
 
                 $order = Order::create([ 
                     'user_id'        => 3,
