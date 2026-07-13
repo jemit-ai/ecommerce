@@ -48,7 +48,23 @@ class OrderController extends Controller
 
     }
 
+    function payment(Request $request){
+
+        try{
+
+        }catch(Exception $e){
+            
+        }
+
+    }
+
     function cancel(Request $request){
+
+        try{
+
+        }catch(Exception $e){
+            
+        }
 
     }
         

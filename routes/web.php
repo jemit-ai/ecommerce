@@ -9,7 +9,10 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
 
+
     Route::post('/order',[OrderController::class,'store'])->name('order.place');
+
+    Route::get('/pay',[OrderController::class,'showPaymentForm'])->name('show.payment');
     Route::post('/pay-order',[OrderController::class,'payment'])->name('order.payment');
     Route::post('/cancel-order',[OrderController::class,'cancel'])->name('order.cancel');
     
