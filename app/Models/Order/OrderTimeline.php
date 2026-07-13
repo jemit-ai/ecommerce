@@ -15,7 +15,7 @@ class OrderTimeline extends Model
         'title',
         'description',
         'created_by',
-        'event_time',
+        'event_time', 
     ];
     
     public function order()
