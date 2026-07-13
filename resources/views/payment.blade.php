@@ -59,7 +59,7 @@
         </div>
     @endif
 
-    <form action="{{ route('payments.store') }}" method="POST">
+    <form action="{{ route('order.payment') }}" method="POST">
     @csrf
 
     <div class="mb-3">
@@ -67,7 +67,7 @@
         <input type="number"
                name="order_id"
                class="form-control"
-               value="{{ old('order_id') }}"
+               value="{{ $order['id'] }}"
                required>
     </div>
 
@@ -86,7 +86,7 @@
         <input type="text"
                name="transaction_id"
                class="form-control"
-               value="{{ old('transaction_id') }}">
+               value="{{ $order['transaction_id'] }}">
     </div>
 
     <div class="mb-3">
@@ -94,7 +94,7 @@
         <input type="text"
                name="payment_id"
                class="form-control"
-               value="{{ old('payment_id') }}">
+               value="{{ $order['payment_id'] }}">
     </div>
 
     <button type="submit" class="btn btn-primary">

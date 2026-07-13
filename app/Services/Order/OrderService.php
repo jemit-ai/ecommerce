@@ -144,6 +144,10 @@ class OrderService
 
     }
 
+    public function getOrderById($id){
+        return Order::find($id);
+    }
+
     /*
     public function createTimeLine(Order $order)
     { 

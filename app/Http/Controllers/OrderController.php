@@ -48,6 +48,24 @@ class OrderController extends Controller
 
     }
 
+    function showPaymentForm(Request $request){
+
+        $order = $this->orderService->getOrderById($request->id);
+
+        $order= array_merge(
+
+            $order->toArray(),
+            [ 
+               'payment_id'     => 'PAY-' . str_pad($order->id, 8, '0', STR_PAD_LEFT),
+               'transaction_id' => 'TXN-' . str_pad($order->id, 8, '0', STR_PAD_LEFT),
+            ]
+
+        );
+
+        return view('payment',compact('order'));
+
+    }
+        
     function payment(Request $request){
 
         try{
@@ -68,5 +86,4 @@ class OrderController extends Controller
 
     }
         
-    
 }
