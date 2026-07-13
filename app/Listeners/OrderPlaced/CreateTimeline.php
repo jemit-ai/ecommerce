@@ -5,7 +5,7 @@ namespace App\Listeners\OrderPlaced;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class CreateTimeline
+class CreateTimeline implements ShouldQueue
 {
     /**
      * Create the event listener.
