@@ -34,14 +34,11 @@ class AppServiceProvider extends ServiceProvider
         //Event::listen(OrderPlaced::class, [SendOrderEmailListener::class, 'handle']);
         //Event::listen(OrderPlaced::class, [GenerateInvoiceListener::class, 'handle']);
         
-        Event::listen(OrderPlaced::class,
-            [
-                ReserveInventory::class, 'handle', 
-                GenerateOrderNo::class, 'handle', 
-                CreateTimeline::class, 'handle', 
-                NotifyAdmin::class, 'handle', 
-                SendEmail::class, 'handle'
-            ]);
+        Event::listen(OrderPlaced::class, ReserveInventory::class);
+        Event::listen(OrderPlaced::class, GenerateOrderNo::class);
+        Event::listen(OrderPlaced::class, CreateTimeline::class);
+        Event::listen(OrderPlaced::class, NotifyAdmin::class);
+        Event::listen(OrderPlaced::class, SendEmail::class);  
             
 
     }

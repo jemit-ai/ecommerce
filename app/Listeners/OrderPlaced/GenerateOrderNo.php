@@ -11,6 +11,8 @@ use Exception;
 
 class GenerateOrderNo implements ShouldQueue
 {
+     use InteractsWithQueue;
+
     /**
      * Create the event listener.
      */

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Listeners\OrderPlaced;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,6 +10,8 @@ use Exception;
 
 class ReserveInventory implements ShouldQueue
 {
+    use InteractsWithQueue;
+
     /**
      * Create the event listener.
      */

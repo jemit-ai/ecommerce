@@ -7,6 +7,8 @@ use Illuminate\Queue\InteractsWithQueue;
 
 class SendEmail implements ShouldQueue
 {
+    use InteractsWithQueue;
+
     /**
      * Create the event listener.
      */

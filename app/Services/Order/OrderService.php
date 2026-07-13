@@ -4,6 +4,7 @@ namespace App\Services\Order;
 use App\Models\Order\Order;
 use App\Models\Order\OrderDetail;
 use App\Models\Product;
+use App\Models\Order\OrderTimeline;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Event;
@@ -112,6 +113,53 @@ class OrderService
             DB::rollBack();
             throw $e;
         }
+
+    }
+
+    public function generateOrderNo(Order $order){
+
+        \Log::info("Order number generation started");
+
+        // $order = Order::find($order->id);
+        // $order->update([
+        //     'order_number' => Str::random(10),
+        // ]); 
+
+        try{
+
+            $order = Order::find($order->id);
+            $order->update([
+            'order_number' => 'ORD-' . now()->format('YmdHis') . '-' . strtoupper(Str::random(4)),
+            ]); 
+
+        }catch(Exception $e){
+
+            \Log::info("Error in generating order number: {$e->getMessage()}"); 
+            
+        }
+        
+
+    }
+
+    public function createTimeLine(Order $order)
+    { 
+        try{
+
+            OrderTimeline::create([
+                'order_id'   => $order->id,
+                'user_id'    => $order->user_id,
+                'status'     => $order->order_status,
+                'title'      => 'Order Placed',
+                'description'=> 'Your order has been placed successfully.',
+                'created_by' => $order->user_id,
+                'event_time' => now(),
+            ]);
+
+        }catch(Exception $e){
+
+            \Log::info("Error in creating timeline: {$e->getMessage()}"); 
+            
+        }    
 
     }
  
