@@ -10,7 +10,7 @@ use App\Models\Order\Product;
 use App\Services\Order\InvoiceService; 
 use App\Jobs\Order\GenerateInvoice;
 
-class GenerateInvoiceListener
+class CreateInvoice
 {
     /**
      * Create the event listener.

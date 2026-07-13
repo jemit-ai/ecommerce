@@ -50,8 +50,6 @@ class OrderController extends Controller
 
     function cancel(Request $request){
 
-
-
     }
         
     

@@ -8,7 +8,7 @@ use App\Events\Order\OrderPlaced;
 use App\Models\Order\Order;
 use App\Services\EmailService; 
 
-class SendOrderEmailListener
+class SendEmail
 {
     /**
      * Create the event listener.

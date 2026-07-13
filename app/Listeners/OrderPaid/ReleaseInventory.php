@@ -10,7 +10,7 @@ use App\Models\Product;
 use App\Services\Order\InventoryService;
 use App\Jobs\Order\UpdateInventory;
 
-class UpdateInventoryListener
+class ReleaseInventory
 {
     /**
      * Create the event listener.
