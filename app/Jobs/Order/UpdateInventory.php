@@ -6,7 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Order;
+use App\Models\Order\Order;
 use App\Services\Order\InventoryService;
 
 class UpdateInventory implements ShouldQueue

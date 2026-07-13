@@ -7,17 +7,19 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Events\Order\OrderPlaced;
 use App\Models\Order\Order;
 use App\Models\Product;
-use App\Services\Order\InventoryService;
-use App\Jobs\Order\UpdateInventory;
+use App\Services\Order\InvoiceService; 
+use App\Jobs\Order\GenerateInvoice;
 
-class UpdateInventoryListener
+class GenerateInvoiceListener
 {
     /**
      * Create the event listener.
      */
-    public function __construct(public InventoryService $inventoryService)
+    public function __construct(public InvoiceService $invoiceService)
     {
         //
+        
+
     }
 
     /**
@@ -25,13 +27,12 @@ class UpdateInventoryListener
      */
     public function handle(object $event): void
     {
-        //UpdateInventory::dispatch($event->order);
-        try{ 
-            UpdateInventory::dispatch($event->order);
+        //
+        try{
+            GenerateInvoice::dispatch($event->order);
         }catch(Exception $e){
-            \Log::info("Inventory update failed for order {$event->order->id}  {$e->getMessage()}");
+            \Log::info("Invoice generation failed for order {$event->order->id}  {$e->getMessage()}");
         }
+
     }
-
-
 }

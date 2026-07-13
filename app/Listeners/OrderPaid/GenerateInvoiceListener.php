@@ -5,8 +5,8 @@ namespace App\Listeners\OrderPlaced;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Events\Order\OrderPlaced;
-use App\Models\Order;
-use App\Models\Product;
+use App\Models\Order\Order;
+use App\Models\Order\Product;
 use App\Services\Order\InvoiceService; 
 use App\Jobs\Order\GenerateInvoice;
 

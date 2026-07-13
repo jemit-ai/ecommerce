@@ -1,8 +1,8 @@
 <?php
 namespace App\Services\Order;
 
-use App\Models\Order;
-use App\Models\OrderDetail;
+use App\Models\Order\Order;
+use App\Models\Order\OrderDetail;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
