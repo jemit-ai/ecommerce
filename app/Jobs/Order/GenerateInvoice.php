@@ -31,7 +31,7 @@ class GenerateInvoice implements ShouldQueue
         \Log::info("Invoice generation started ####");
 
         $invoiceService->generate($this->order);
-        
+
 
     }
 }

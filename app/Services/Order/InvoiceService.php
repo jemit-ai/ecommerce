@@ -6,15 +6,16 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceService{
     
     public function generate(Order $order):string{
 
-        \Log::info("####Invoice service started ####");
+        //\Log::info("####Invoice service started ####");
 
-        \Log::info($order);
+        //\Log::info($order);
 
         try{
 
@@ -22,6 +23,10 @@ class InvoiceService{
                 'user',
                 'details.product'
             ]);
+
+            //\Log::info('Pro');
+
+            //\Log::info($order);
 
             $pdf = Pdf::loadView(
                 'pdf.invoice',

@@ -25,20 +25,8 @@ class UpdateInventoryListener
      */
     public function handle(object $event): void
     {
-        
-        \Log::info('Inventory Updated Successfully'); 
-        \Log::info($event->order->id); 
-        \Log::info($event->order->order_number); 
-        //\Log::info($event->order->order_details); 
-        \Log::info($event->order->order_status); 
-        \Log::info($event->order->user_id); 
-        \Log::info($event->order->payment_method); 
-        \Log::info($event->order->payment_id);
-        
         UpdateInventory::dispatch($event->order);
-
-
     }
 
-    
+
 }
