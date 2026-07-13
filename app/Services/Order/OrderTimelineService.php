@@ -20,8 +20,6 @@ use Exception;
 class OrderTimelineService
 {
 
-    public function __construct(public InventoryService $inventoryService){}
-    
     private const TIMELINE_EVENTS = [ 
 
         OrderStatus::PENDING->value => [
@@ -63,7 +61,33 @@ class OrderTimelineService
             'title' => 'Returned',
             'description' => 'Your order has been cancelled.',
         ],
-        
+
     ];
+
+    public function create(Order $order): void
+    {
+        $event = self::TIMELINE_EVENTS[$order->order_status];
+
+        \Log::info('Order timeline created successfully');
+
+        try{
+
+            OrderTimeline::create([
+                'order_id'    => $order->id,
+                'user_id'     => auth()->id() ?? $order->user_id,
+                'status'      => $order->order_status,
+                'title'       => $event['title'],
+                'description' => $event['description'],
+                'created_by'  => auth()->id() ?? $order->user_id,
+                'event_time'  => now(),
+            ]);
+
+        }catch(Exception $e){
+
+            \Log::info("Order timeline creation failed for order {$order->id} {$e->getMessage()}");
+
+        }
+
+    }
 
 }

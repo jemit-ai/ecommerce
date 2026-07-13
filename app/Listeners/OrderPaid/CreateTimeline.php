@@ -4,7 +4,7 @@ namespace App\Listeners\OrderPlaced;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use App\Services\Order\OrderService;
+use App\Services\Order\OrderTimelineService;
 
 class CreateTimeline implements ShouldQueue
 {
@@ -13,7 +13,7 @@ class CreateTimeline implements ShouldQueue
     /**
      * Create the event listener.
      */
-    public function __construct(public OrderService $orderService)
+    public function __construct(public OrderTimelineService $orderTimelineService)
     {
         //
     }
@@ -25,7 +25,8 @@ class CreateTimeline implements ShouldQueue
     {
         try{
 
-            $this->orderService->createTimeLine($event->order);
+            //$this->orderService->createTimeLine($event->order);
+            $this->orderTimelineService->create($event->order);
 
         }catch(\Exception $e){
 
