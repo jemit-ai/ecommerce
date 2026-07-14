@@ -17,4 +17,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__.'/subroute/auth.php';
+require __DIR__.'/subroute/custom.php';
+require __DIR__.'/subroute/admin.php';
+require __DIR__.'/subroute/seller.php';
+require __DIR__.'/subroute/supplier.php';
+
+
+
+
+
