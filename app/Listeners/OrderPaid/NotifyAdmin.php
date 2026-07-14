@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\OrderPlaced;
+namespace App\Listeners\OrderPaid;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;

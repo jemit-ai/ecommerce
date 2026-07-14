@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Listeners\OrderPlaced;
+namespace App\Listeners\OrderPaid;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use App\Events\Order\OrderPlaced;
+use App\Events\Order\OrderPaid;
 use App\Models\Order\Order;
 use App\Models\Order\Product;
 use App\Services\Order\InvoiceService; 
 use App\Jobs\Order\GenerateInvoice;
 
-class CreateInvoice
+
+class CreateInvoice implements ShouldQueue
 {
+    use InteractsWithQueue;
     /**
      * Create the event listener.
      */
@@ -29,8 +31,9 @@ class CreateInvoice
     {
         //
         try{
+            \Log::info('Invoice generation started for order ' . $event->order->id);
             GenerateInvoice::dispatch($event->order);
-        }catch(Exception $e){
+        }catch(\Exception $e){
             \Log::info("Invoice generation failed for order {$event->order->id}  {$e->getMessage()}");
         }
 

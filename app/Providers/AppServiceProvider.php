@@ -40,11 +40,11 @@ class AppServiceProvider extends ServiceProvider
         Event::listen(OrderPlaced::class, NotifyAdmin::class);
         Event::listen(OrderPlaced::class, SendEmail::class);  
 
-        Event::listen(OrderPaid::class, ReleaseInventory::class);
-        Event::listen(OrderPaid::class, GenerateInvoice::class);
-        Event::listen(OrderPaid::class, CreateTimeline::class);
-        Event::listen(OrderPaid::class, NotifyAdmin::class);
-        Event::listen(OrderPaid::class, SendEmail::class); 
+        Event::listen(\App\Events\Order\OrderPaid::class, \App\Listeners\OrderPaid\ReleaseInventory::class);
+        Event::listen(\App\Events\Order\OrderPaid::class, \App\Listeners\OrderPaid\CreateInvoice::class);
+        Event::listen(\App\Events\Order\OrderPaid::class, \App\Listeners\OrderPaid\CreateTimeline::class);
+        Event::listen(\App\Events\Order\OrderPaid::class, \App\Listeners\OrderPaid\NotifyAdmin::class);
+        Event::listen(\App\Events\Order\OrderPaid::class, \App\Listeners\OrderPaid\SendEmail::class); 
             
 
     }

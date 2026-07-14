@@ -30,7 +30,7 @@ class GenerateInvoice implements ShouldQueue
         //
        try{
           $invoiceService->generate($this->order);
-       }catch(Exception $e){
+       }catch(\Exception $e){
           \Log::info("Invoice generation failed for order {$this->order->id}  {$e->getMessage()}");
        }
 

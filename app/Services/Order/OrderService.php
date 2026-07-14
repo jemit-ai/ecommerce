@@ -89,6 +89,35 @@ class OrderService
 
     }
 
+    public function confirm(Order $order):bool{
+
+        try{
+
+            $order = DB::transaction(function () use ($order) {
+
+                $order->update([
+                    'order_status'   => 'confirmed',
+                ]);
+
+                return $order;
+
+            });
+
+            DB::afterCommit(function () use ($order) {
+                \Log::info('Dispatching OrderPaid event' .$order->id);
+
+                OrderPaid::dispatch($order); 
+            }); 
+            
+            return true;
+
+        }catch(Exception $e){
+            DB::rollBack();
+            throw $e;
+        }
+
+    }
+
     public function cancel(Order $order){
 
         try{
@@ -145,7 +174,14 @@ class OrderService
     }
 
     public function getOrderById($id){
-        return Order::find($id);
+
+        $order=""; 
+        try{
+            $order=Order::find($id);
+        }catch(\Exception $e){
+            \Log::info('OrderDetails'. $e->getMessage() . 'File:--->'.__FILE__.__LINE__);
+        }
+        return $order;
     }
 
     /*

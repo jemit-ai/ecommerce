@@ -70,8 +70,21 @@ class OrderController extends Controller
 
         try{
 
+            \Log::info('Payment confirm method hit');
+
+            $order_id = $request->get('order_id');
+
+            $order = $this->orderService->getOrderById($order_id); 
+
+            \Log::info("Order confirm before {$order->id}");
+
+            $this->orderService->confirm($order); 
+
+            //Event::dispatch(new OrderPaid($order));  
+
         }catch(Exception $e){
             
+            \Log::error($e->getMessage());
         }
 
     }

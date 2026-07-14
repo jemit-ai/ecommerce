@@ -30,7 +30,7 @@ class UpdateInventory implements ShouldQueue
         //
         try{
           $inventoryService->deductStock($this->order);
-        }catch(Exception $e){
+        }catch(\Exception $e){
           \Log::info("Inventory update failed for order {$this->order->id}  {$e->getMessage()}");
         } 
             
