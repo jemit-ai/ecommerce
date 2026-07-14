@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Laravel Payment Form</title>
+    <title>Laravel Cancel Payment Form</title>
 
     <style>
         body{
@@ -59,7 +59,7 @@
         </div>
     @endif
 
-    <form action="{{ route('order.payment') }}" method="POST">
+    <form action="{{ route('order.cancel') }}" method="POST">
     @csrf
 
     <div class="mb-3">
@@ -97,9 +97,6 @@
                value="{{ $order['payment_id'] }}">
     </div>
 
-    <button type="submit" class="btn btn-primary">
-        Submit Payment
-    </button> 
  
     <button type="submit" class="btn btn-primary">
         Cancel Payment
