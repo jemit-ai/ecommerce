@@ -93,7 +93,19 @@ class OrderController extends Controller
 
         try{
 
+            \Log::info('Payment cancel method hit'); 
+
+            $order_id = $request->get('order_id');
+
+            $order = $this->orderService->getOrderById($order_id); 
+
+            \Log::info("Order cancel before {$order->id}");
+
+            $this->orderService->cancel($order); 
+
         }catch(Exception $e){
+            
+            \Log::error($e->getMessage());
             
         }
 

@@ -128,12 +128,19 @@ class OrderService
                     'order_status'   => 'cancelled',
                 ]);
 
-                foreach ($order->details as $item) {
+                /*foreach ($order->details as $item) {
 
                     $product = Product::findOrFail($item['product_id']);
 
                     $product->increment('stock', $item['quantity']);
-                }
+                }*/
+
+                DB::afterCommit(function () use ($order) { 
+
+                    \Log::info('Dispatching OrderPaid event' .$order->id); 
+                    OrderCancelled::dispatch($order); 
+
+                });                 
 
                 return $order;
             });
