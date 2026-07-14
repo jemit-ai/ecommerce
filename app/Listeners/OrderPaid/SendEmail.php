@@ -14,7 +14,7 @@ class SendEmail implements ShouldQueue
     /**
      * Create the event listener.
      */
-    public function __construct(public EmailService $emailService)
+    public function __construct()
     {
         //
     }
