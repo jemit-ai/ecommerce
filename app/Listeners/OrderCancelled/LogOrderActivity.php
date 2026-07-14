@@ -5,7 +5,7 @@ namespace App\Listeners\OrderCancelled;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class RefundPaymentListener
+class LogOrderActivity
 {
     /**
      * Create the event listener.

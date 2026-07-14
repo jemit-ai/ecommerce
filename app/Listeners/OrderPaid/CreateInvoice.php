@@ -6,7 +6,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Events\Order\OrderPaid;
 use App\Models\Order\Order;
-use App\Models\Order\Product;
+
+use App\Models\Order\OrderDetail;
+use App\Models\Product;
+
 use App\Services\Order\InvoiceService; 
 use App\Jobs\Order\GenerateInvoice;
 
